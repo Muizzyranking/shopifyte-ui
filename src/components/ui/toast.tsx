@@ -1,13 +1,13 @@
 "use client";
 
-import { AlertCircle, CheckCircle, X } from "lucide-react";
+import { AlertCircle, CheckCircle, Info, X } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 
 export interface ToastMessage {
   id: string;
   message: string;
-  type: "error" | "success";
+  type: "error" | "success" | "info";
 }
 
 interface ToastProps {
@@ -15,17 +15,27 @@ interface ToastProps {
   onRemove: (id: string) => void;
 }
 
+interface VariantProps {
+  variant?: "default" | "destructive" | "info";
+  icon?: React.ReactNode;
+}
+export type ToastType = "error" | "info" | "success";
+
+const variantMap: Record<ToastType, VariantProps> = {
+  error: { variant: "destructive", icon: <AlertCircle className="h-4 w-4" /> },
+  info: { variant: "info", icon: <Info className="h-4 w-4" /> },
+  success: { variant: "default", icon: <CheckCircle className="h-4 w-4" /> },
+};
+
+const getVariant = (toast_type: ToastType): VariantProps => {
+  return variantMap[toast_type] || variantMap.info;
+};
+
 export function Toast({ toast, onRemove }: ToastProps) {
+  const { variant, icon } = getVariant(toast.type);
   return (
-    <Alert
-      variant={toast.type === "error" ? "destructive" : "default"}
-      className="w-80 animate-in slide-in-from-right-full duration-300"
-    >
-      {toast.type === "error" ? (
-        <AlertCircle className="h-4 w-4" />
-      ) : (
-        <CheckCircle className="h-4 w-4" />
-      )}
+    <Alert variant={variant} className="w-80 animate-in slide-in-from-right-full duration-300">
+      {icon}
       <AlertDescription className="flex justify-between items-center">
         <span>{toast.message}</span>
         <Button
