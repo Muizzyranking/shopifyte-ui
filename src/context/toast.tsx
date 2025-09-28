@@ -2,12 +2,12 @@
 
 import type { ReactNode } from "react";
 import { createContext, useContext, useState } from "react";
-import type { ToastMessage } from "@/components/ui/toast";
+import type { ToastMessage, ToastType } from "@/components/ui/toast";
 import { ToastContainer } from "@/components/ui/toast";
 import { MAX_TOASTS, TOAST_DURATION } from "@/constants";
 
 interface ToastContextType {
-  addToast: (message: string, type: "error" | "success", duration?: number) => void;
+  addToast: (message: string, type: ToastType, duration?: number) => void;
   removeToast: (id: string) => void;
   clearToasts: () => void;
   toasts: ToastMessage[];
@@ -36,7 +36,7 @@ export function ToastProvider({
 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
-  const addToast = (message: string, type: "error" | "success", duration = defaultDuration) => {
+  const addToast = (message: string, type: ToastType, duration = defaultDuration) => {
     const id = crypto.randomUUID();
     const newToast: ToastMessage = { id, message, type };
 
@@ -91,6 +91,6 @@ export function useToastActions() {
   return {
     successToast: (message: string, duration?: number) => addToast(message, "success", duration),
     errorToast: (message: string, duration?: number) => addToast(message, "error", duration),
-    infoToast: (message: string, duration?: number) => addToast(message, "success", duration), // Using success styling for info
+    infoToast: (message: string, duration?: number) => addToast(message, "info", duration),
   };
 }
