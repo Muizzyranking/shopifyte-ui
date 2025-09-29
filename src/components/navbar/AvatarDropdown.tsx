@@ -16,7 +16,7 @@ interface UserDropdownProps {
   avatarItems: AvatarMenuItem[];
 }
 
-export function UserDropdown({ isLoggedIn, avatarItems }: UserDropdownProps) {
+export function AvatarDropdown({ isLoggedIn, avatarItems }: UserDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
