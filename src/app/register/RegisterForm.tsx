@@ -1,11 +1,10 @@
 "use client";
-
 import { useId } from "react";
 import { FormField } from "@/components/FormField";
 import { PasswordField } from "@/components/PasswordField";
 import { PrivacyPolicy } from "@/components/PrivacyPolicy";
-import { SocialLoginButton } from "@/components/ui/SocialLoginButton";
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { SocialLoginButton } from "@/components/ui/social-login-button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { useRegistrationForm } from "@/hooks/useRegisteration";
 import { cn } from "@/lib/utils";
 import type { RegisterData } from "@/types/auth";
@@ -35,24 +34,18 @@ export function RegisterForm({ onSuccess, className, ...props }: NewSignupFormPr
   } = useRegistrationForm(onSuccess);
 
   return (
-    <div className={cn("w-full max-w-md space-y-8", className)} {...props}>
-      <div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-white">
-          Create your account
-        </h2>
-      </div>
-
+    <div className={cn("space-y-6", className)} {...props}>
       <SocialLoginButton signIn={true} />
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-4">
           {/* Email Field */}
           <FormField
             id={emailId}
             name="email"
-            label="Email"
+            label="Email Address"
             type="email"
-            placeholder="Enter your email"
+            placeholder="Enter your email address"
             value={formData.email}
             onChange={handleInputChange}
             onBlur={handleBlur}
@@ -67,7 +60,7 @@ export function RegisterForm({ onSuccess, className, ...props }: NewSignupFormPr
             id={usernameId}
             name="username"
             label="Username"
-            placeholder="Choose a username"
+            placeholder="Choose a unique username"
             value={formData.username}
             onChange={handleInputChange}
             onBlur={handleBlur}
@@ -83,7 +76,7 @@ export function RegisterForm({ onSuccess, className, ...props }: NewSignupFormPr
               id={firstNameId}
               name="firstName"
               label="First Name"
-              placeholder="First name"
+              placeholder="Enter your first name"
               value={formData.firstName}
               onChange={handleInputChange}
               onBlur={handleBlur}
@@ -96,7 +89,7 @@ export function RegisterForm({ onSuccess, className, ...props }: NewSignupFormPr
               id={lastNameId}
               name="lastName"
               label="Last Name"
-              placeholder="Last name"
+              placeholder="Enter your last name"
               value={formData.lastName}
               onChange={handleInputChange}
               onBlur={handleBlur}
@@ -113,7 +106,7 @@ export function RegisterForm({ onSuccess, className, ...props }: NewSignupFormPr
             name="phoneNumber"
             label="Phone Number"
             type="tel"
-            placeholder="+1234567890"
+            placeholder="Enter your phone number"
             value={formData.phoneNumber}
             onChange={handleInputChange}
             onBlur={handleBlur}
@@ -155,25 +148,14 @@ export function RegisterForm({ onSuccess, className, ...props }: NewSignupFormPr
           />
         </div>
 
-        <div>
-          <SubmitButton
-            isLoading={isSubmitting}
-            loadingText="Creating Account..."
-            text="Create Account"
-            className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-background-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          />
-        </div>
+        <SubmitButton
+          isLoading={isSubmitting}
+          loadingText="Creating Account..."
+          text="Create Account"
+          className="w-full"
+        />
       </form>
 
-      <div className="text-sm text-center">
-        <span className="text-muted-foreground">Already have an account? </span>
-        <a
-          className="font-medium text-primary hover:text-primary/80 transition-colors underline-offset-4 hover:underline"
-          href="/login"
-        >
-          Login
-        </a>
-      </div>
       <PrivacyPolicy />
     </div>
   );
