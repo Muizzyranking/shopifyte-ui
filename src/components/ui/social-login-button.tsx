@@ -20,9 +20,8 @@ export function SocialLoginButton({ signIn }: SocialLoginButtonProps) {
               fill="currentColor"
             />
           </svg>
-          {(signIn && "Sign up") || "Login"} with Google
+          {signIn ? "Sign up" : "Sign in"} with Google
         </Button>
-
         <Button
           variant="outline"
           className="w-full bg-background hover:bg-accent hover:text-accent-foreground"
@@ -35,15 +34,18 @@ export function SocialLoginButton({ signIn }: SocialLoginButtonProps) {
               fill="currentColor"
             />
           </svg>
-          {(signIn && "Sign up") || "Login"} with Apple
+          {signIn ? "Sign up" : "Sign in"} with Apple
         </Button>
       </div>
+
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-border" />
+          <span className="w-full border-t border-gray-300 dark:border-gray-700" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-gray-50 px-2 text-muted-foreground">Or continue with email</span>
+          <span className="bg-white dark:bg-gray-800 px-2 text-gray-500 dark:text-gray-400">
+            Or continue with email
+          </span>
         </div>
       </div>
     </>
