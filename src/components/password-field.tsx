@@ -2,7 +2,7 @@
 
 import { Check, CheckCircle, Eye, EyeOff, X } from "lucide-react";
 import { useState } from "react";
-import { FormField } from "@/components/FormField";
+import { FormField } from "@/components/form-field";
 import { cn } from "@/lib/utils";
 
 interface PasswordRequirement {
@@ -55,7 +55,7 @@ function PasswordRequirements({
   );
 }
 
-interface NewPasswordFieldProps {
+interface PasswordFieldProps {
   id: string;
   name: string;
   label: string;
@@ -84,7 +84,7 @@ export function PasswordField({
   showRequirements = false,
   originalPassword,
   isConfirmField = false,
-}: NewPasswordFieldProps) {
+}: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const allRequirementsMet = passwordRequirements.every((req) => req.test(value));

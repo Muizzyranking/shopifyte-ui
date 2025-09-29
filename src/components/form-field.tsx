@@ -42,22 +42,6 @@ export function FormField({
 }: FormFieldProps) {
   const hasError = errors && errors.length > 0;
 
-  const baseClasses =
-    "form-input appearance-none relative block w-full px-3 py-3 border border-slate-300 dark:border-slate-700 placeholder-slate-500 dark:placeholder-slate-400 text-slate-900 dark:text-white bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-colors";
-
-  // rounded-lg and rounded-l-... is not merging properly
-  const hasCustomBorderRadius =
-    inputClassName &&
-    (inputClassName.includes("rounded-") || inputClassName.includes("border-radius-"));
-
-  const merged = cn(
-    baseClasses,
-    inputClassName,
-    !hasCustomBorderRadius && "rounded-lg",
-    hasError && "border-red-500 focus:ring-red-500 focus:border-red-500",
-    hasSuccess && "border-green-500 focus:ring-green-500 focus:border-green-500",
-    disabled && "opacity-50 cursor-not-allowed",
-  );
   return (
     <div className={cn("space-y-2", className)}>
       {showLabel && (
@@ -81,7 +65,13 @@ export function FormField({
           onBlur={onBlur}
           disabled={disabled}
           required={required}
-          className={merged}
+          className={cn(
+            "form-input appearance-none relative block w-full px-3 py-3 border border-slate-300 dark:border-slate-700 placeholder-slate-500 dark:placeholder-slate-400 text-slate-900 dark:text-white bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm rounded-lg transition-colors",
+            inputClassName,
+            hasError && "border-red-500 focus:ring-red-500 focus:border-red-500",
+            hasSuccess && "border-green-500 focus:ring-green-500 focus:border-green-500",
+            disabled && "opacity-50 cursor-not-allowed",
+          )}
         />
 
         {hasSuccess && !children && (

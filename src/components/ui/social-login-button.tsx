@@ -43,7 +43,7 @@ export function SocialLoginButton({ signIn }: SocialLoginButtonProps) {
           <span className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-background px-2 text-muted-foreground">Or continue with email</span>
+          <span className="bg-gray-50 px-2 text-muted-foreground">Or continue with email</span>
         </div>
       </div>
     </>
