@@ -1,10 +1,9 @@
 "use client";
-
 import { useId } from "react";
 import { FormField } from "@/components/FormField";
 import { PrivacyPolicy } from "@/components/PrivacyPolicy";
-import { SocialLoginButton } from "@/components/ui/SocialLoginButton";
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { SocialLoginButton } from "@/components/ui/social-login-button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { useLoginForm } from "@/hooks/useLoginForm";
 import { cn } from "@/lib/utils";
 
@@ -12,32 +11,25 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
   const emailId = useId();
   const passwordId = useId();
   const { formData, isSubmitting, handleInputChange, handleSubmit } = useLoginForm();
-  return (
-    <div className={cn("w-full max-w-md space-y-8", className)} {...props}>
-      <div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-white">
-          Welcome back
-        </h2>
-      </div>
 
+  return (
+    <div className={cn("space-y-6", className)} {...props}>
       <SocialLoginButton />
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="">
+        <div className="space-y-4">
           <FormField
             id={emailId}
             name="email"
-            label="Email address"
+            label="Email Address"
             type="email"
-            placeholder="Email address"
+            placeholder="Enter your email address"
             value={formData.email}
             onChange={handleInputChange}
             onBlur={() => {}}
             errors={[]}
             hasSuccess={false}
             disabled={isSubmitting}
-            showLabel={false}
-            inputClassName="rounded-t-lg py-4"
             required
           />
           <FormField
@@ -52,42 +44,27 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
             errors={[]}
             hasSuccess={false}
             disabled={isSubmitting}
-            showLabel={false}
-            inputClassName="rounded-b-lg py-4"
             required
           />
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="text-sm">
-            <a
-              className="font-medium text-primary hover:text-primary/80 transition-colors underline-offset-4 hover:underline"
-              href="/forgot-password"
-            >
-              Forgot your password?
-            </a>
-          </div>
+        <div className="flex items-center justify-end">
+          <a
+            href="/forgot-password"
+            className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+          >
+            Forgot your password?
+          </a>
         </div>
 
-        <div>
-          <SubmitButton
-            isLoading={isSubmitting}
-            loadingText="Logging in..."
-            text="Login"
-            className="w-full"
-          />
-        </div>
+        <SubmitButton
+          isLoading={isSubmitting}
+          loadingText="Signing in..."
+          text="Sign In"
+          className="w-full"
+        />
       </form>
 
-      <div className="text-sm text-center">
-        <span className="text-muted-foreground">Don't have an account? </span>
-        <a
-          className="font-medium text-primary hover:text-primary/80 transition-colors underline-offset-4 hover:underline"
-          href="/register"
-        >
-          Sign up
-        </a>
-      </div>
       <PrivacyPolicy />
     </div>
   );
