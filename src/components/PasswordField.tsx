@@ -2,8 +2,8 @@
 
 import { Check, CheckCircle, Eye, EyeOff, X } from "lucide-react";
 import { useState } from "react";
-import { FormField } from "@/components/form-field";
 import { cn } from "@/lib/utils";
+import { FormField } from "./FormField";
 
 interface PasswordRequirement {
   label: string;
