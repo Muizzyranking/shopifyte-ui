@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useToastActions } from "@/context/toast";
-import type { BackendLoginResponse, LoginData } from "@/types/auth";
+import type { BackendLoginResponse, LoginData } from "@/types/auth.types";
 
 export function useLoginForm(
   onSuccess?: (data: LoginData, response?: BackendLoginResponse) => void,
