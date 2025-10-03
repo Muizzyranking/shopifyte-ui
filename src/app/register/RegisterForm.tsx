@@ -7,7 +7,7 @@ import { SocialLoginButton } from "@/components/ui/social-login-button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRegistrationForm } from "@/hooks/useRegisteration";
 import { cn } from "@/lib/utils";
-import type { RegisterData } from "@/types/auth";
+import type { RegisterData } from "@/types/auth.types";
 
 interface NewSignupFormProps {
   onSuccess?: (data: RegisterData) => void;
