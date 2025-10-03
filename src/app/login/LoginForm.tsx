@@ -1,22 +1,29 @@
 "use client";
 import { useId } from "react";
+import { FormAlert } from "@/components/FormAlert";
 import { FormField } from "@/components/FormField";
 import { PrivacyPolicy } from "@/components/PrivacyPolicy";
 import { SocialLoginButton } from "@/components/ui/social-login-button";
 import { SubmitButton } from "@/components/ui/submit-button";
+import { useAuth } from "@/context/authContext";
 import { useLoginForm } from "@/hooks/useLoginForm";
 import { cn } from "@/lib/utils";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const emailId = useId();
   const passwordId = useId();
-  const { formData, isSubmitting, handleInputChange, handleSubmit } = useLoginForm();
+  const auth = useAuth();
+  const { formData, isSubmitting, errorMessage, handleInputChange, handleSubmit, clearError } =
+    useLoginForm((_, data) => {
+      auth?.login(data?.user);
+    });
 
   return (
     <div className={cn("space-y-6", className)} {...props}>
       <SocialLoginButton />
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        <FormAlert message={errorMessage} type="error" onClose={clearError} />
         <div className="space-y-4">
           <FormField
             id={emailId}
