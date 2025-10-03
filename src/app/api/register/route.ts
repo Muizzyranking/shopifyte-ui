@@ -1,19 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import type { RegisterData } from "@/types/auth";
-
-const API_URL = process.env.API_URL;
-
-export interface BackendRegisterResponse {
-  message: string;
-  errors?: {
-    [key: string]: string[];
-  };
-}
+import { API_URL } from "@/constants";
+import type { BackendRegisterResponse, RegisterData } from "@/types/auth.types";
 
 interface RegisterResponse {
   message: string;
-  status: "success" | "error" | "pending";
   errors?: {
     [key: string]: string[];
   };
@@ -37,7 +28,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           message: "All fields are required.",
-          status: "error",
           errors: {
             general: ["All fields are required."],
           },
@@ -50,7 +40,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           message: "Passwords do not match.",
-          status: "error",
           errors: {
             password: ["Passwords do not match."],
             confirmPassword: ["Passwords do not match."],
@@ -82,7 +71,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           message: responseData.message,
-          status: "error",
           errors: responseData.errors,
         } as RegisterResponse,
         { status: backendResponse.status },
@@ -95,7 +83,6 @@ export async function POST(request: NextRequest) {
         {
           message:
             "Registration successful! Please check your email for verification. You may need to wait or click resend if you don't receive it.",
-          status: "pending",
         } as RegisterResponse,
         { status: 202 },
       );
@@ -104,7 +91,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         message: "Registration successful! Please check your email for verification.",
-        status: "success",
       } as RegisterResponse,
       { status: 200 },
     );
@@ -113,7 +99,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         message: "An unexpected error occurred.",
-        status: "error",
         errors: {
           general: ["An unexpected error occurred during registration. Please try again later."],
         },
