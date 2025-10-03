@@ -1,4 +1,4 @@
-import type { RegisterData } from "@/types/auth";
+import type { RegisterData } from "@/types/auth.types";
 
 const validateEmail = (email: string): string[] => {
   const errors: string[] = [];
